@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCGridCell.h"
 
-@interface SCGridTable : UIView <UITableViewDataSource, UITableViewDelegate>
+@protocol SCGridTableDelegate;
 
+@interface SCGridTable : UIView <UITableViewDataSource, UITableViewDelegate, SCGridCellDelegate>
+
+@property (nonatomic, strong) id<SCGridTableDelegate> delegate;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UITableView *gridTable;
@@ -30,13 +34,12 @@
 
 - (void)extandViewWithWidth:(CGFloat)width;
 
-@end
+- (void)refreshWithData:(NSArray *)data;
 
+@end
 
 @protocol SCGridTableDelegate <NSObject>
 
-@optional
-- (void)SCGridTable:(SCGridTable *)SCGridTable clickWithValue:(NSString *)value;
-- (void)SCGridTable:(SCGridTable *)SCGridTable clickWithIndex:(CGPoint)index;
+- (void)SCGridTable:(SCGridTable *)SCGridTalbe clickWithText:(NSString *)text;
 
 @end

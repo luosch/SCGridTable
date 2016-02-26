@@ -7,6 +7,7 @@
 //
 
 #import "SCGridTable.h"
+#import "SCGridCell.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor \
 colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -38,15 +39,17 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         
         self.scrollView = [[UIScrollView alloc] initWithFrame:frame];
         self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(frame), CGRectGetHeight(frame));
+        self.scrollView.scrollEnabled = NO;
         
         // setup Header
         [self setupHeaderView];
         [self.scrollView addSubview:self.headerView];
         
         // setup GridTable
+        [self setupGridTable];
+        [self.scrollView addSubview:self.gridTable];
         
-        
-        
+        [self addSubview:self.scrollView];
     }
     
     return self;
@@ -100,10 +103,52 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #pragma - Setup GridTable
 
 - (void)setupGridTable {
-    self.gridTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, CGRectGetWidth(self.frame), CGRectGetHeight(fself.rame) - 30) style:UITableViewStylePlain];
+    self.gridTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) - 30) style:UITableViewStylePlain];
     self.gridTable.delegate = self;
     self.gridTable.dataSource = self;
-    self.gridTable.separatorColor = [UIColor whiteColor];
+    self.gridTable.separatorColor = [UIColor clearColor];
+}
+
+#pragma - UITableView DataSource and Delegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.data count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 30;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"SCGridCell";
+    SCGridCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (!cell) {
+        if (!self.ratio) {
+            cell = [[SCGridCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                     reuseIdentifier:CellIdentifier
+                                              column:self.data[indexPath.row]];
+            cell.delegate = self;
+        }
+    }
+    
+    return cell;
+}
+
+#pragma - SCGridCell Delegate
+
+- (void)clickWithText:(NSString *)text {
+    if ([self.delegate respondsToSelector:@selector(SCGridTable:clickWithText:)]) {
+        [self.delegate SCGridTable:self clickWithText:text];
+    }
 }
 
 #pragma - Image Work

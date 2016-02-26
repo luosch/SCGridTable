@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4103E1961C804F600054CB52 /* SCGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4103E1951C804F600054CB52 /* SCGridCell.m */; };
 		418FC3EC1C7EE69E005D9F44 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 418FC3EB1C7EE69E005D9F44 /* main.m */; };
 		418FC3EF1C7EE69E005D9F44 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 418FC3EE1C7EE69E005D9F44 /* AppDelegate.m */; };
 		418FC3F21C7EE69E005D9F44 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 418FC3F11C7EE69E005D9F44 /* ViewController.m */; };
@@ -36,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4103E1941C804F600054CB52 /* SCGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCGridCell.h; path = ../Classes/SCGridCell.h; sourceTree = "<group>"; };
+		4103E1951C804F600054CB52 /* SCGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCGridCell.m; path = ../Classes/SCGridCell.m; sourceTree = "<group>"; };
 		418FC3E71C7EE69E005D9F44 /* demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		418FC3EB1C7EE69E005D9F44 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		418FC3ED1C7EE69E005D9F44 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -86,6 +89,8 @@
 			children = (
 				418FC41D1C7EE6F9005D9F44 /* SCGridTable.h */,
 				418FC41E1C7EE6F9005D9F44 /* SCGridTable.m */,
+				4103E1941C804F600054CB52 /* SCGridCell.h */,
+				4103E1951C804F600054CB52 /* SCGridCell.m */,
 				418FC3E91C7EE69E005D9F44 /* demo */,
 				418FC4031C7EE69E005D9F44 /* demoTests */,
 				418FC40E1C7EE69E005D9F44 /* demoUITests */,
@@ -276,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				418FC41F1C7EE6F9005D9F44 /* SCGridTable.m in Sources */,
+				4103E1961C804F600054CB52 /* SCGridCell.m in Sources */,
 				418FC3F21C7EE69E005D9F44 /* ViewController.m in Sources */,
 				418FC3EF1C7EE69E005D9F44 /* AppDelegate.m in Sources */,
 				418FC3EC1C7EE69E005D9F44 /* main.m in Sources */,
