@@ -40,6 +40,7 @@
 
 @protocol SCGridTableDelegate <NSObject>
 
+@optional
 - (void)SCGridTable:(SCGridTable *)SCGridTalbe clickWithText:(NSString *)text;
 
 @end

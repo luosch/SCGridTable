@@ -39,6 +39,15 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     return self;
 }
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style
+              reuseIdentifier:(NSString *)reuseIdentifier
+                       column:(NSArray *)column
+                        ratio:(NSArray *)ratio {
+    self.ratio = ratio;
+    
+    return [self initWithStyle:style reuseIdentifier:reuseIdentifier column:column];
+}
+
 #pragma - UI Work
 
 - (void)layoutSubviews {
@@ -48,7 +57,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     CGFloat columnWidth = CGRectGetWidth(self.contentView.frame) / [self.labels count];
     CGFloat columnHeight = 30;
     
+    NSInteger index = 0;
     for (UILabel *column in self.labels) {
+        if (self.ratio) {
+            columnWidth = [self.ratio[index] doubleValue] * CGRectGetWidth(self.contentView.frame);
+            index++;
+        }
+        
         column.frame = CGRectMake(startPosition + 6, 6, columnWidth - 12, columnHeight - 12);
         
         UIImageView *border = [[UIImageView alloc] initWithFrame:CGRectMake(startPosition, 0, 1, 30)];

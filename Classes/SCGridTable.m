@@ -42,11 +42,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         self.scrollView.scrollEnabled = NO;
         
         // setup Header
-        [self setupHeaderView];
+        [self setupHeaderViewWithWidth:CGRectGetWidth(self.frame)];
         [self.scrollView addSubview:self.headerView];
         
         // setup GridTable
-        [self setupGridTable];
+        [self setupGridTableWithWidth:CGRectGetWidth(self.frame)];
         [self.scrollView addSubview:self.gridTable];
         
         [self addSubview:self.scrollView];
@@ -65,11 +65,43 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
  *
  *  @return a SCGridTable instance with ratio
  */
+- (instancetype)initWithFrame:(CGRect)frame
+                       header:(NSArray *)header
+                         data:(NSArray *)data
+                        ratio:(NSArray *)ratio {
+    self.ratio = ratio;
+    
+    return [self initWithFrame:frame header:header data:data];
+}
+
+#pragma - Data Reload
+
+- (void)refreshWithData:(NSArray *)data {
+    self.data = data;
+    [self.gridTable reloadData];
+}
+
+#pragma - ScrollView Extend
+
+- (void)extandViewWithWidth:(CGFloat)width {
+    self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.frame) + width, CGRectGetHeight(self.frame));
+    self.scrollView.scrollEnabled = YES;
+    
+    [self.headerView removeFromSuperview];
+    self.headerView = nil;
+    [self setupHeaderViewWithWidth:self.scrollView.contentSize.width];
+    [self.scrollView addSubview:self.headerView];
+    
+    [self.gridTable removeFromSuperview];
+    self.gridTable = nil;
+    [self setupGridTableWithWidth:self.scrollView.contentSize.width];
+    [self.scrollView addSubview:self.gridTable];
+}
 
 #pragma - Header View
 
-- (void)setupHeaderView {
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), 30)];
+- (void)setupHeaderViewWithWidth:(CGFloat)width {
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 30)];
     self.headerView.layer.borderColor = UIColorFromRGB(0xdddddd).CGColor;
     self.headerView.layer.borderWidth = 1;
     self.headerView.backgroundColor = [UIColor whiteColor];
@@ -80,7 +112,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     for (int i = 0; i < [self.header count]; i++) {
         if (self.ratio) {
-            columnWidth = self.bounds.size.width * [self.ratio[i] doubleValue];
+            columnWidth = width * [self.ratio[i] doubleValue];
         }
         
         CGRect columnFrame = CGRectMake(startPosition + 6, 6, columnWidth - 12, 30 - 12);
@@ -102,8 +134,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 #pragma - Setup GridTable
 
-- (void)setupGridTable {
-    self.gridTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) - 30) style:UITableViewStylePlain];
+- (void)setupGridTableWithWidth:(CGFloat)width {
+    self.gridTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, width, CGRectGetHeight(self.frame) - 30) style:UITableViewStylePlain];
     self.gridTable.delegate = self;
     self.gridTable.dataSource = self;
     self.gridTable.separatorColor = [UIColor clearColor];
@@ -132,12 +164,20 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     SCGridCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (!cell) {
-        if (!self.ratio) {
+        if (self.ratio) {
+            cell = [[SCGridCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                     reuseIdentifier:CellIdentifier
+                                              column:self.data[indexPath.row]
+                                               ratio:self.ratio];
+        } else {
             cell = [[SCGridCell alloc] initWithStyle:UITableViewCellStyleDefault
                                      reuseIdentifier:CellIdentifier
                                               column:self.data[indexPath.row]];
-            cell.delegate = self;
         }
+        
+        cell.delegate = self;
+        
+        
     }
     
     return cell;

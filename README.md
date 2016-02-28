@@ -3,7 +3,7 @@
 
 ## Overview
 
-**`SCGridTable`** is a uesful GridTable for iOS APP
+**`SCGridTable`** is a uesful and lightweight GridTable for iOS APP
 
 ## License
 

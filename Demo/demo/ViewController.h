@@ -11,5 +11,7 @@
 
 @interface ViewController : UIViewController <SCGridTableDelegate>
 
+@property (nonatomic, strong) SCGridTable *vinda;
+
 @end
 
