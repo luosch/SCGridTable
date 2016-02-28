@@ -5,7 +5,7 @@ Pod::Spec.new do |spec|
   spec.homepage          = 'https://github.com/luosch/SCGridTable'
   spec.authors           = { 'Sicheng Luo' => 'i@lsich.com' }
   spec.summary           = 'A uesful and lightweight GridTable for iOS APP'
-  spec.source            = { :git => 'https://github.com/luosch/SCGridTable', :tag => 'v0.9.0'}
+  spec.source            = { :git => 'https://github.com/luosch/SCGridTable.git', :tag => 'v0.9.0'}
   spec.source_files      = 'Classes/*.{h,m}'
   spec.framework         = 'Foundation', 'UIKit'
   spec.requires_arc      = true
