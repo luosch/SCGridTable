@@ -5,6 +5,10 @@
 [![Pod Platform](http://img.shields.io/cocoapods/p/SCGridTable.svg?style=flat)](http://cocoadocs.org/docsets/SCGridTable/)
 [![License](https://img.shields.io/cocoapods/l/SCGridTable.svg?style=flat)](https://github.com/luosch/SCGridTable/blob/master/LICENSE)
 
+## Screenshots
+
+![](https://raw.githubusercontent.com/luosch/SCGridTable/master/Screenshots/demo.gif)
+
 ## Overview
 
 **`SCGridTable`** is a uesful and lightweight GridTable for iOS APP

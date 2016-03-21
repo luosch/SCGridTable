@@ -15,6 +15,8 @@
 
 @implementation ViewController
 
+__weak id ref = nil;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSArray *header = @[@"name", @"height", @"weight", @"date"];
@@ -24,8 +26,23 @@
     self.vinda.delegate = self;
     [self.view addSubview:self.vinda];
     
-    [self performSelector:@selector(refreshTest) withObject:self afterDelay:3];
-    [self performSelector:@selector(extendWidthTest) withObject:self afterDelay:6];
+    [self performSelector:@selector(refreshTest) withObject:self];
+    [self performSelector:@selector(extendWidthTest) withObject:self];
+    
+    // for interview
+    NSArray *abc = [NSArray arrayWithObjects:@"1", @"2", @"3", nil];
+    ref = abc;
+    NSLog(@"viewDidLoad::%@", ref);
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    NSLog(@"viewWillAppear::%@", ref);
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSLog(@"viewDidAppear::%@", ref);
 }
 
 #pragma - SCGridTable Delegate
@@ -55,6 +72,7 @@
 
 - (void)refreshTest {
     [self.vinda refreshWithData:[self getTestData2]];
+    NSLog(@"refreshTest::%@", ref);
 }
 
 #pragma - Test Extend Width
